@@ -15,14 +15,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
-    private final PasswordEncoder encoder;
+  //  private final PasswordEncoder encoder;
 
     private RoleService roleService;
 
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, PasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
-        this.encoder = encoder;
     }
 
     @Override
@@ -69,7 +68,7 @@ public class UserServiceImpl implements UserService {
         user.getRoles().forEach(role -> {
             role.setRoleName(roleService.findById(role.getId()).getRoleName());
         });
-        user.setPassword(encoder.encode(user.getPassword()));
+     //   user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }
 }
